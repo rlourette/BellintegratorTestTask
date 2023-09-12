@@ -12,15 +12,14 @@ int main() {
     try {
         ServerSocket server(28888);
         std::cout << "Server listening on port 28888..." << std::endl;
-
+        StreamSocket client = server.acceptConnection();
+        SocketStream ss(client);
+        
+        // Send a welcome message to the client
+        ss << "\"Welcome to POCO TCP server. Enter you(sic) string:\"" << std::endl;
+        ss.flush();
+        
         while (true) {
-            StreamSocket client = server.acceptConnection();
-            SocketStream ss(client);
-
-            // Send a welcome message to the client
-            ss << "\"Welcome to POCO TCP server. Enter you(sic) string:\"" << std::endl;
-            ss.flush();
-
             // Receive and process client input
             std::string clientInput;
             std::getline(ss, clientInput);
@@ -34,7 +33,7 @@ int main() {
             std::reverse(clientInput.begin(), clientInput.end());
 
             // Send the reversed string back to the client
-            ss << "Reversed string: \"" << clientInput << "\"" << std::endl;
+            ss << clientInput << std::endl;
             ss.flush();
 
             // Keep the connection open for further requests
