@@ -19,7 +19,7 @@ These instructions will guide you through building a simple test TCP server usin
 
 2. Copy and paste the following code into `tcp_server.cpp`:
 
-   ```
+   ```cpp
    #include <iostream>
    #include <Poco/Net/ServerSocket.h>
    #include <Poco/Net/StreamSocket.h>
