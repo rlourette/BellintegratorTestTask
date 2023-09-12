@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <Poco/Net/ServerSocket.h>
 #include <Poco/Net/StreamSocket.h>
 #include <Poco/Net/SocketStream.h>
@@ -9,19 +10,22 @@ using namespace Poco;
 
 int main() {
     try {
-        ServerSocket serverSocket(28888);
-        std::cout << "Server started on port 28888." << std::endl;
+        ServerSocket server(28888);
+        std::cout << "Server listening on port 28888..." << std::endl;
 
         while (true) {
-            StreamSocket clientSocket = serverSocket.acceptConnection();
-            SocketStream clientStream(clientSocket);
+            StreamSocket client = server.acceptConnection();
+            SocketStream ss(client);
 
-            clientStream << "\"Welcome to POCO TCP server. Enter you(sic) string:\"" << std::endl;
-            clientStream.flush();
+            // Send a welcome message to the client
+            ss << "\"Welcome to POCO TCP server. Enter you(sic) string:\"" << std::endl;
+            ss.flush();
 
+            // Receive and process client input
             std::string clientInput;
-            std::getline(clientStream, clientInput);
+            std::getline(ss, clientInput);
 
+            // Ensure the input does not exceed 255 characters
             if (clientInput.length() > 255) {
                 clientInput = clientInput.substr(0, 255);
             }
@@ -29,12 +33,13 @@ int main() {
             // Reverse the string
             std::reverse(clientInput.begin(), clientInput.end());
 
-            clientStream << "\nReversed string: " << clientInput << std::endl;
-            clientStream.flush();
+            // Send the reversed string back to the client
+            ss << "Reversed string: \"" << clientInput << "\"" << std::endl;
+            ss.flush();
 
-            clientSocket.close();
+            // Keep the connection open for further requests
         }
-    } catch (Poco::Exception& e) {
+    } catch (Exception& e) {
         std::cerr << "Exception: " << e.displayText() << std::endl;
         return 1;
     }
