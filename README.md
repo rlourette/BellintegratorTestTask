@@ -15,9 +15,9 @@ These instructions will guide you through building a simple test TCP server usin
 
 ## Building the TCP Server
 
-1. Create a new C++ source file for the server, e.g., `tcp_server.cpp`.
+1. Create a new C++ source file for the server, e.g., `bellintegratortesttask.cpp`.
 
-2. Copy and paste the following code into `tcp_server.cpp`:
+2. Copy and paste the following code into `bellintegratortesttask.cpp`:
 
    ```cpp
    #include <iostream>
@@ -68,13 +68,13 @@ These instructions will guide you through building a simple test TCP server usin
 3. Compile the code using a C++ compiler that supports POCO and link against the POCO libraries:
 
    ```bash
-   g++ -o tcp_server tcp_server.cpp -lPocoNet -lPocoUtil -lPocoFoundation
+   g++ -o bellintegratortesttask bellintegratortesttask.cpp -lPocoNet -lPocoUtil -lPocoFoundation
    ```
 
 4. Run the compiled executable:
 
    ```bash
-   ./tcp_server
+   ./bellintegratortesttask
    ```
 
 The TCP server will now be running and listening on port 28888. It will accept client connections, reverse input strings, and handle lines exceeding 255 characters by truncating them.
