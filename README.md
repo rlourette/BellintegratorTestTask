@@ -19,7 +19,7 @@ These instructions will guide you through building a simple test TCP server usin
 2. Copy and paste the following code into `bellintegratortesttask.cpp`:
 
    ```cpp
-    include "Poco/Net/ServerSocket.h"
+    #include "Poco/Net/ServerSocket.h"
     #include "Poco/Net/StreamSocket.h"
     #include "Poco/Net/SocketStream.h"
     #include "Poco/Thread.h"
@@ -98,6 +98,7 @@ These instructions will guide you through building a simple test TCP server usin
     ```bash
     telnet localhost 28888
     ```
+   The TCP server will now be running and listening on port 28888. It will accept client connections, reverse input strings, and handle lines exceeding 255 characters by truncating them.
 
 6. Example session:
 
@@ -109,6 +110,5 @@ These instructions will guide you through building a simple test TCP server usin
     "Welcome to POCO TCP server. Enter you(sic) string:"
     1234567890
     0987654321
-```
-The TCP server will now be running and listening on port 28888. It will accept client connections, reverse input strings, and handle lines exceeding 255 characters by truncating them.
-```
+    ```
+
